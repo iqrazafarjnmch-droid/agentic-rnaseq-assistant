@@ -1,0 +1,6 @@
+r-base
+r-base-dev
+r-cran-ggplot2
+libxml2-dev
+libcurl4-openssl-dev
+libssl-dev

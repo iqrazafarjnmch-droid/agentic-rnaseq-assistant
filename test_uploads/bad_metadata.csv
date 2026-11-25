@@ -1,0 +1,5 @@
+sample,condition
+Ctrl_1,Control
+Ctrl_2,Control
+Trt_1,Treated
+Wrong_Sample,Treated
