@@ -1,42 +1,55 @@
 import os
+from pathlib import Path
 import numpy as np
 import pandas as pd
 
-rng = np.random.default_rng(42)
-project_dir = os.path.expanduser("~/Minor_Project_RNASeq")
-data_dir = os.path.join(project_dir, "data")
-os.makedirs(data_dir, exist_ok=True)
+def generate_realistic_dataset(
+    output_dir: str = "data",
+    n_genes: int = 500,
+    n_per_group: int = 3,
+    seed: int = 42,
+) -> tuple[Path, Path]:
+    rng = np.random.default_rng(seed)
+    out_path = Path(output_dir)
+    out_path.mkdir(parents=True, exist_ok=True)
 
-n_genes = 800
-samples = ["CTRL_1", "CTRL_2", "CTRL_3", "TREAT_1", "TREAT_2", "TREAT_3"]
-conditions = ["Control", "Control", "Control", "Treated", "Treated", "Treated"]
-size_factors = np.array([0.75, 1.35, 0.95, 1.40, 0.80, 1.15])
+    genes = [f"GENE_{i:04d}" for i in range(1, n_genes + 1)]
+    samples = [f"CTRL_{i+1}" for i in range(n_per_group)] + [f"TRT_{i+1}" for i in range(n_per_group)]
+    conditions = ["control"] * n_per_group + ["treated"] * n_per_group
 
-genes = [f"ENSG{i:07d}" for i in range(1, n_genes + 1)]
-base_means = rng.lognormal(mean=4.2, sigma=1.6, size=n_genes)
-base_means[:40] = 0.0  # all-zero noise genes
-base_means[40:120] = rng.uniform(0.1, 1.2, size=80)  # low-count genes
+    base_means = rng.integers(25, 1500, size=n_genes).astype(float)
+    matrix = np.zeros((n_genes, len(samples)), dtype=int)
 
-fc = np.ones(n_genes)
-fc[120:155] = rng.uniform(2.2, 4.5, size=35)   # upregulated in Treated
-fc[155:190] = rng.uniform(0.22, 0.45, size=35) # downregulated in Treated
+    up_idx = np.arange(0, min(30, n_genes))
+    down_idx = np.arange(min(30, n_genes), min(60, n_genes))
 
-counts = np.zeros((n_genes, len(samples)), dtype=int)
-dispersion = 0.08
+    for g in range(n_genes):
+        mu = base_means[g]
+        for s in range(len(samples)):
+            sample_mu = mu
+            if conditions[s] == "treated":
+                if g in up_idx:
+                    sample_mu = mu * rng.uniform(2.5, 6.0)
+                elif g in down_idx:
+                    sample_mu = mu * rng.uniform(0.15, 0.45)
+            dispersion = 0.12
+            shape = 1.0 / dispersion
+            scale = sample_mu * dispersion
+            count_val = int(rng.gamma(shape=shape, scale=scale))
+            matrix[g, s] = max(0, count_val)
 
-for j, sf in enumerate(size_factors):
-    group_mult = fc if conditions[j] == "Treated" else np.ones(n_genes)
-    mu = np.maximum(base_means * group_mult * sf, 1e-6)
-    shape = 1.0 / dispersion
-    scale = mu / shape
-    counts[:, j] = rng.gamma(shape=shape, scale=scale)
-    counts[:, j] = rng.poisson(counts[:, j])
+    counts_df = pd.DataFrame(matrix, columns=samples)
+    counts_df.insert(0, "gene_id", genes)
 
-counts_df = pd.DataFrame(counts, index=genes, columns=samples)
-counts_df.index.name = "gene_id"
-counts_df.to_csv(os.path.join(data_dir, "real_like_counts.csv"))
+    meta_df = pd.DataFrame({"sample": samples, "condition": conditions})
 
-meta_df = pd.DataFrame({"sample": samples, "condition": conditions})
-meta_df.to_csv(os.path.join(data_dir, "real_like_metadata.csv"), index=False)
+    counts_file = out_path / "real_like_counts.csv"
+    meta_file = out_path / "real_like_metadata.csv"
+    counts_df.to_csv(counts_file, index=False)
+    meta_df.to_csv(meta_file, index=False)
 
-print("Generated realistic dataset:", counts_df.shape)
+    print(f"Generated realistic dataset: {counts_df.shape[0]} genes x {len(samples)} samples")
+    return counts_file, meta_file
+
+if __name__ == "__main__":
+    generate_realistic_dataset()
