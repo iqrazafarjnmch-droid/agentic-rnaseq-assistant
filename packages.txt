@@ -1,11 +1,5 @@
-r-base-dev
+r-base-core
+r-bioc-deseq2
 libxml2-dev
 libcurl4-openssl-dev
 libssl-dev
-libfontconfig1-dev
-libharfbuzz-dev
-libfribidi-dev
-libfreetype6-dev
-libpng-dev
-libtiff5-dev
-libjpeg-dev
