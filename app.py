@@ -22,7 +22,7 @@ if shutil.which("Rscript") and (PROJECT_DIR / "setup.R").exists():
 
 DATA_DIR = PROJECT_DIR / "data"
 RESULTS_DIR = PROJECT_DIR / "results"
-RSCRIPT_EXE = "/mnt/c/Program Files/R/R-4.6.2/bin/x64/Rscript.exe"
+RSCRIPT_EXE = shutil.which("Rscript") or "Rscript"
 DESEQ2_SCRIPT = PROJECT_DIR / "scripts" / "run_deseq2.R"
 
 st.set_page_config(
