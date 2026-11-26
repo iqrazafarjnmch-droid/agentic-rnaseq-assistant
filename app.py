@@ -289,3 +289,17 @@ if rep_file.exists() and csv_file.exists():
     )
 else:
     st.info("Run the pipeline from the sidebar or type 'run real_like' in chat to view outputs.")
+
+
+# --- Plain-language quick summary ---
+if "res_df" in locals() and res_df is not None and not res_df.empty:
+    with st.expander("Quick Summary (Aasaan Bhasha Mein)"):
+        st.write(f"Total genes analyzed: {len(res_df)}")
+        if "padj" in res_df.columns and "log2FoldChange" in res_df.columns:
+            sig = res_df[res_df["padj"].fillna(1) < padj_cut]
+            up_n = int((sig["log2FoldChange"] >= lfc_cut).sum())
+            down_n = int((sig["log2FoldChange"] <= -lfc_cut).sum())
+            st.write(f"Significant genes: {len(sig)} | Upregulated: {up_n} | Downregulated: {down_n}")
+            top_row = res_df.sort_values("padj").iloc[0]
+            gene_label = top_row.iloc[0] if len(top_row) > 0 else "N/A"
+            st.write(f"Top candidate gene: {gene_label} (padj={top_row['padj']:.2e}, log2FC={top_row['log2FoldChange']:.2f})")
