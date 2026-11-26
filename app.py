@@ -33,29 +33,53 @@ st.set_page_config(
 
 
 def validate_inputs(counts_df: pd.DataFrame, meta_df: pd.DataFrame) -> tuple[bool, str]:
-    if counts_df.empty or meta_df.empty:
-        return False, "Counts or metadata file is empty."
+    if counts_df is None or meta_df is None or counts_df.empty or meta_df.empty:
+        return False, "Counts ya metadata file khaali hai. Kripya valid CSV files upload karein."
+
     if len(counts_df.columns) < 2:
-        return False, "Counts matrix must contain a gene ID column and at least two sample columns."
-    if not {"sample", "condition"}.issubset(set(meta_df.columns)):
-        return False, "Metadata file must include 'sample' and 'condition' columns."
+        return False, "Counts file mein kam se kam ek gene ID column aur sample columns hone chahiye."
 
-    sample_cols = list(counts_df.columns[1:])
-    meta_samples = list(meta_df["sample"].astype(str))
+    meta_cols = {str(c).strip() for c in meta_df.columns}
+    if not {"sample", "condition"}.issubset(meta_cols):
+        return False, "Metadata file mein 'sample' aur 'condition' yeh dono columns hone chahiye."
+
+    gene_col = counts_df.columns[0]
+    gene_ids = counts_df[gene_col].astype(str).str.strip()
+    if gene_ids.eq("").any() or gene_ids.isna().any():
+        return False, "Counts file ki pehli column (gene ID) mein khaali value nahi honi chahiye."
+    if gene_ids.duplicated().any():
+        return False, "Counts file mein duplicate gene IDs mili hain. Har gene ID unique hona chahiye."
+
+    sample_cols = [str(c).strip() for c in counts_df.columns[1:]]
+    meta_samples = [str(s).strip() for s in meta_df["sample"]]
+
+    if len(sample_cols) != len(set(sample_cols)):
+        return False, "Counts file mein duplicate sample column names hain."
+    if len(meta_samples) != len(set(meta_samples)):
+        return False, "Metadata file mein duplicate sample names hain."
+
     if set(sample_cols) != set(meta_samples):
-        return False, f"Metadata samples ({meta_samples}) do not match count matrix columns ({sample_cols})."
+        missing_in_meta = sorted(set(sample_cols) - set(meta_samples))
+        extra_in_meta = sorted(set(meta_samples) - set(sample_cols))
+        return (
+            False,
+            f"Counts aur metadata ke sample names match nahi kar rahe. "
+            f"Sirf counts mein: {missing_in_meta} | Sirf metadata mein: {extra_in_meta}"
+        )
 
-    num_part = counts_df[sample_cols].apply(pd.to_numeric, errors="coerce")
-    if num_part.isna().any().any():
-        return False, "Counts matrix contains non-numeric or missing values."
-    if (num_part.values < 0).any():
-        return False, "Counts matrix cannot contain negative values."
+    conditions = meta_df["condition"].astype(str).str.strip()
+    if conditions.eq("").any() or meta_df["condition"].isna().any():
+        return False, "Metadata ki 'condition' column mein koi value khaali nahi honi chahiye."
+    if conditions.nunique() < 2:
+        return False, "DESeq2 comparison ke liye 'condition' mein kam se kam 2 alag groups/conditions hone chahiye."
 
-    conds = meta_df["condition"].astype(str).unique().tolist()
-    if len(conds) < 2:
-        return False, "At least two experimental conditions (e.g., Control vs Treated) are required for differential expression."
+    numeric_counts = counts_df.iloc[:, 1:].apply(pd.to_numeric, errors="coerce")
+    if numeric_counts.isna().any().any():
+        return False, "Counts columns mein sirf numbers hone chahiye (text ya blank values nahi)."
+    if (numeric_counts < 0).any().any():
+        return False, "Counts values negative (0 se kam) nahi honi chahiye."
 
-    return True, "Validation passed: input files, sample IDs, and count values are valid."
+    return True, "Input files valid hain aur DESeq2 chalane ke liye taiyaar hain."
 
 
 def run_analysis(counts_path: Path, meta_path: Path, out_dir: Path, padj_cut: float, lfc_cut: float) -> tuple[bool, str]:
@@ -119,6 +143,22 @@ with st.sidebar:
     )
     uploaded_counts = st.file_uploader("Upload Counts CSV", type=["csv"])
     uploaded_meta = st.file_uploader("Upload Metadata CSV", type=["csv"])
+with st.expander("Sample CSV Format & Templates"):
+    st.caption("Counts mein pehla column gene ID aur baaki columns sample names hon; metadata mein 'sample' aur 'condition' columns hon.")
+    sample_counts_csv = (
+        "gene_id,s1,s2,s3,s4\n"
+        "GENE1,120,135,420,395\n"
+        "GENE2,50,48,15,18\n"
+    )
+    sample_meta_csv = (
+        "sample,condition\n"
+        "s1,control\n"
+        "s2,control\n"
+        "s3,treated\n"
+        "s4,treated\n"
+    )
+    st.download_button("Download Sample Counts CSV", sample_counts_csv, "sample_counts.csv", "text/csv")
+    st.download_button("Download Sample Metadata CSV", sample_meta_csv, "sample_metadata.csv", "text/csv")
 
     padj_cut = st.number_input(
         "Adjusted p-value cutoff (padj)",
