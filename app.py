@@ -41,20 +41,24 @@ st.markdown(
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    .stApp {
-        background: linear-gradient(160deg, #ecfeff 0%, #f8fafc 48%, #f0fdfa 100%);
-        color: #0f172a;
+    .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
+        background: linear-gradient(160deg, #ecfeff 0%, #f8fafc 48%, #f0fdfa 100%) !important;
+        color: #0f172a !important;
     }
     .block-container {
         padding-top: 3.4rem !important;
         padding-bottom: 5.5rem !important;
         max-width: 1280px;
+        color: #0f172a !important;
     }
 
-    /* Sidebar */
+    p, span, label, .stMarkdown, .stCaption, h1, h2, h3, h4 {
+        color: #0f172a !important;
+    }
+
     section[data-testid="stSidebar"] {
-        background: #f0fdfa;
-        border-right: 2px solid #5eead4;
+        background: #f0fdfa !important;
+        border-right: 2px solid #5eead4 !important;
     }
     section[data-testid="stSidebar"] > div {
         padding-top: 1.5rem;
@@ -62,16 +66,31 @@ st.markdown(
     section[data-testid="stSidebar"] h1,
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] h3 {
-        color: #134e4a;
-        font-weight: 800;
-        border-bottom: 2px solid #2dd4bf;
-        padding-bottom: 0.45rem;
-        margin-bottom: 0.85rem;
+        color: #134e4a !important;
+        font-weight: 800 !important;
+        border-bottom: 2px solid #2dd4bf !important;
+        padding-bottom: 0.45rem !important;
+        margin-bottom: 0.85rem !important;
+    }
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] p {
+        color: #0f172a !important;
     }
     section[data-testid="stSidebar"] [data-baseweb="select"] > div,
+    section[data-testid="stSidebar"] [data-baseweb="select"] span,
     section[data-testid="stSidebar"] input {
         border-radius: 12px !important;
-        border: 1.5px solid #2dd4bf !important;
+        border-color: #2dd4bf !important;
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+    }
+    section[data-testid="stSidebar"] [data-baseweb="select"] > div > div,
+    section[data-testid="stSidebar"] [data-baseweb="select"] [class*="singleValue"],
+    section[data-testid="stSidebar"] [data-baseweb="select"] [class*="placeholder"] {
+        color: #0f172a !important;
+    }
+    ul[data-baseweb="menu"], ul[data-baseweb="menu"] li, div[data-baseweb="popover"] li {
         background-color: #ffffff !important;
         color: #0f172a !important;
     }
@@ -79,17 +98,20 @@ st.markdown(
         border-radius: 14px !important;
         border: 2px dashed #06b6d4 !important;
         background: #ffffff !important;
+        color: #0f172a !important;
     }
 
-    /* Hero Banner */
     .omicmind-hero {
-        background: linear-gradient(125deg, #0e7490 0%, #06b6d4 52%, #0f766e 100%);
-        color: #ffffff;
+        background: linear-gradient(125deg, #0e7490 0%, #06b6d4 52%, #0f766e 100%) !important;
+        color: #ffffff !important;
         padding: 1.8rem 2.1rem;
         border-radius: 18px;
         border: 2px solid #67e8f9;
         box-shadow: 0 14px 30px -10px rgba(14, 116, 144, 0.35);
         margin-bottom: 1.1rem;
+    }
+    .omicmind-hero *, .omicmind-hero h1, .omicmind-hero p, .omicmind-hero div {
+        color: #ffffff !important;
     }
     .omicmind-badge {
         display: inline-block;
@@ -97,8 +119,8 @@ st.markdown(
         font-weight: 700;
         letter-spacing: 0.05em;
         text-transform: uppercase;
-        background: #ffffff;
-        color: #0e7490;
+        background: #ffffff !important;
+        color: #0e7490 !important;
         padding: 0.28rem 0.8rem;
         border-radius: 999px;
         margin-bottom: 0.6rem;
@@ -108,16 +130,13 @@ st.markdown(
         font-weight: 800;
         line-height: 1.15;
         margin: 0;
-        color: #ffffff;
     }
     .omicmind-sub {
-        color: #f0fdfa;
         font-size: 0.98rem;
         margin: 0.45rem 0 0 0;
         line-height: 1.5;
     }
 
-    /* 3-Step Cards */
     .omicmind-steps {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -129,12 +148,12 @@ st.markdown(
         padding: 0.9rem 1.05rem;
         box-shadow: 0 6px 16px -8px rgba(15, 23, 42, 0.12);
     }
-    .step-1 { background: #ecfeff; border: 2px solid #22d3ee; }
-    .step-1 .omicmind-step-num { color: #0e7490; }
-    .step-2 { background: #fffbeb; border: 2px solid #fbbf24; }
-    .step-2 .omicmind-step-num { color: #b45309; }
-    .step-3 { background: #f0fdf4; border: 2px solid #34d399; }
-    .step-3 .omicmind-step-num { color: #047857; }
+    .step-1 { background: #ecfeff !important; border: 2px solid #22d3ee !important; }
+    .step-1 .omicmind-step-num { color: #0e7490 !important; }
+    .step-2 { background: #fffbeb !important; border: 2px solid #fbbf24 !important; }
+    .step-2 .omicmind-step-num { color: #b45309 !important; }
+    .step-3 { background: #f0fdf4 !important; border: 2px solid #34d399 !important; }
+    .step-3 .omicmind-step-num { color: #047857 !important; }
     .omicmind-step-num {
         font-size: 0.73rem;
         font-weight: 800;
@@ -145,34 +164,35 @@ st.markdown(
     .omicmind-step-text {
         font-size: 0.9rem;
         font-weight: 700;
-        color: #0f172a;
+        color: #0f172a !important;
     }
 
-    /* Expanders, Metrics, Tables & Results styling */
     div[data-testid="stExpander"] {
         background: #ffffff !important;
         border-radius: 16px !important;
         border: 2px solid #a5f3fc !important;
         margin-bottom: 1rem !important;
     }
-    div[data-testid="stExpander"] summary {
+    div[data-testid="stExpander"] summary,
+    div[data-testid="stExpander"] summary span {
         font-weight: 700 !important;
         color: #0e7490 !important;
     }
     div[data-testid="stMetric"] {
-        background: #ffffff;
-        border: 2px solid #99f6e4;
+        background: #ffffff !important;
+        border: 2px solid #99f6e4 !important;
         border-radius: 16px;
         padding: 0.85rem 1.05rem;
     }
+    div[data-testid="stMetric"] * {
+        color: #0f172a !important;
+    }
     div[data-testid="stDataFrame"] {
-        background: #ffffff;
-        border: 2px solid #67e8f9;
+        background: #ffffff !important;
+        border: 2px solid #67e8f9 !important;
         border-radius: 14px;
         padding: 0.35rem;
     }
-
-    /* Chatbot messages & command input */
     div[data-testid="stChatMessage"] {
         background: #ffffff !important;
         border: 2px solid #67e8f9 !important;
@@ -182,7 +202,17 @@ st.markdown(
         box-shadow: 0 8px 20px -12px rgba(8, 145, 178, 0.22) !important;
         margin-bottom: 0.85rem !important;
     }
+    div[data-testid="stChatMessage"] *,
+    div[data-testid="stChatMessage"] pre,
+    div[data-testid="stChatMessage"] code {
+        color: #0f172a !important;
+    }
+
+    div[data-testid="stChatInput"],
     div[data-testid="stChatInput"] > div {
+        background: transparent !important;
+    }
+    div[data-testid="stChatInput"] > div > div {
         border-radius: 16px !important;
         border: 2px solid #06b6d4 !important;
         background: #ffffff !important;
@@ -190,16 +220,24 @@ st.markdown(
     }
     div[data-testid="stChatInput"] textarea {
         color: #0f172a !important;
+        background: #ffffff !important;
         font-size: 0.96rem !important;
         font-weight: 500 !important;
+    }
+    div[data-testid="stChatInput"] textarea::placeholder {
+        color: #64748b !important;
+        opacity: 1 !important;
     }
     div[data-testid="stChatInput"] button {
         background: linear-gradient(135deg, #0891b2 0%, #0d9488 100%) !important;
         color: #ffffff !important;
         border-radius: 12px !important;
     }
+    div[data-testid="stChatInput"] button svg {
+        fill: #ffffff !important;
+        color: #ffffff !important;
+    }
 
-    /* Buttons & Download buttons */
     .stButton > button, .stDownloadButton > button {
         border-radius: 12px !important;
         font-weight: 700 !important;
@@ -208,10 +246,16 @@ st.markdown(
         color: #0e7490 !important;
         padding: 0.45rem 1.05rem !important;
     }
+    .stButton > button *, .stDownloadButton > button * {
+        color: #0e7490 !important;
+    }
     .stButton > button[kind="primary"], .stDownloadButton > button[kind="primary"] {
         background: linear-gradient(135deg, #0891b2 0%, #0d9488 100%) !important;
         color: #ffffff !important;
         border: 2px solid #0e7490 !important;
+    }
+    .stButton > button[kind="primary"] *, .stDownloadButton > button[kind="primary"] * {
+        color: #ffffff !important;
     }
     .stButton > button:hover, .stDownloadButton > button:hover {
         background: #cffafe !important;
