@@ -382,6 +382,12 @@ def get_dataset_paths(preset: str, uploaded_counts, uploaded_meta, out_dir: Path
     return DATA_DIR / "sample_counts.csv", DATA_DIR / "sample_metadata.csv", "default"
 
 
+if "auto_ran_once" not in st.session_state:
+    st.session_state.auto_ran_once = True
+if "pending_run" not in st.session_state:
+    st.session_state.pending_run = None
+if "has_executed_run" not in st.session_state:
+    st.session_state.has_executed_run = False
 if "messages" not in st.session_state:
     st.session_state.messages = [
         {
@@ -455,6 +461,14 @@ st.subheader("💬 Assistant Chat")
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
+
+
+# Explicit on-demand example dataset trigger (no auto-run on load)
+if not st.session_state.has_executed_run:
+    st.info("Ready in assistant mode. Click **Run Example Dataset** below or type a command like `run real_like` in the chat.")
+if st.button("Run Example Dataset", type="primary", key="run_example_dataset_btn"):
+    st.session_state.pending_run = "real_like"
+    st.session_state.has_executed_run = True
 
 prompt = st.chat_input("Enter a command or question (e.g., 'run real_like' or 'top genes summary')...")
 if prompt:
