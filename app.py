@@ -41,21 +41,21 @@ st.markdown(
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    /* Bright, crisp canvas */
+    /* Bright, crisp turquoise-tinted canvas */
     .stApp {
         background: linear-gradient(160deg, #ecfeff 0%, #f8fafc 48%, #f0fdfa 100%);
         color: #0f172a;
     }
     .block-container {
         padding-top: 3.4rem !important;
-        padding-bottom: 5.5rem !important;
+        padding-bottom: 6rem !important;
         max-width: 1280px;
     }
 
     /* Left Sidebar: distinct turquoise-framed control panel */
     section[data-testid="stSidebar"] {
         background: #f0fdfa;
-        border-right: 2px solid #99f6e4;
+        border-right: 2px solid #5eead4;
     }
     section[data-testid="stSidebar"] > div {
         padding-top: 1.5rem;
@@ -65,12 +65,9 @@ st.markdown(
     section[data-testid="stSidebar"] h3 {
         color: #134e4a;
         font-weight: 800;
-        border-bottom: 2px solid #5eead4;
+        border-bottom: 2px solid #2dd4bf;
         padding-bottom: 0.45rem;
         margin-bottom: 0.9rem;
-    }
-    section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div[data-testid="stElementContainer"] {
-        margin-bottom: 0.35rem;
     }
     section[data-testid="stSidebar"] [data-baseweb="select"] > div,
     section[data-testid="stSidebar"] input {
@@ -170,6 +167,42 @@ st.markdown(
         color: #0f172a;
     }
 
+    /* Results, Plots & Downloads showcase styling */
+    .omicmind-results-banner {
+        background: linear-gradient(90deg, #e0f2fe 0%, #ecfeff 55%, #f0fdfa 100%);
+        border: 2px solid #22d3ee;
+        border-left: 7px solid #0891b2;
+        border-radius: 16px;
+        padding: 0.95rem 1.25rem;
+        margin-top: 1.15rem;
+        margin-bottom: 0.85rem;
+        box-shadow: 0 6px 18px -10px rgba(8, 145, 178, 0.22);
+    }
+    .omicmind-results-title {
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: #0e7490;
+        margin: 0;
+    }
+    .omicmind-results-sub {
+        font-size: 0.9rem;
+        color: #1e293b;
+        margin: 0.25rem 0 0 0;
+        font-weight: 500;
+    }
+
+    /* Tabs & Download buttons inside results */
+    button[data-baseweb="tab"] {
+        border-radius: 10px 10px 0 0 !important;
+        font-weight: 700 !important;
+        color: #0f766e !important;
+    }
+    button[data-baseweb="tab"][aria-selected="true"] {
+        background-color: #ffffff !important;
+        color: #0e7490 !important;
+        border-top: 2.5px solid #06b6d4 !important;
+    }
+
     /* Distinct bordered boxes for Expanders, Metrics, Tables & Chat */
     div[data-testid="stExpander"] {
         background: #ffffff !important;
@@ -208,17 +241,36 @@ st.markdown(
         margin-bottom: 0.9rem !important;
     }
 
-    /* Chat input box: clear turquoise outline & high contrast */
+    /* Command prompt label + sleek turquoise input bar */
+    .omicmind-cmd-label {
+        display: inline-block;
+        font-size: 0.74rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #0e7490;
+        background: #cffafe;
+        border: 1.5px solid #22d3ee;
+        padding: 0.22rem 0.7rem;
+        border-radius: 999px;
+        margin-bottom: 0.4rem;
+    }
     div[data-testid="stChatInput"] > div {
-        border-radius: 16px !important;
-        border: 2px solid #06b6d4 !important;
-        background: #ffffff !important;
-        box-shadow: 0 8px 24px -8px rgba(6, 182, 212, 0.35) !important;
+        border-radius: 18px !important;
+        border: 2.5px solid #06b6d4 !important;
+        background: linear-gradient(90deg, #ffffff 0%, #f0fdfa 100%) !important;
+        box-shadow: 0 10px 26px -8px rgba(6, 182, 212, 0.38) !important;
+        padding: 0.15rem 0.35rem !important;
     }
     div[data-testid="stChatInput"] textarea {
         color: #0f172a !important;
-        font-size: 0.96rem !important;
-        font-weight: 500 !important;
+        font-size: 0.98rem !important;
+        font-weight: 600 !important;
+    }
+    div[data-testid="stChatInput"] button {
+        background: linear-gradient(135deg, #0891b2 0%, #0d9488 100%) !important;
+        color: #ffffff !important;
+        border-radius: 12px !important;
     }
 
     /* Buttons */
@@ -228,10 +280,10 @@ st.markdown(
         border: 2px solid #22d3ee !important;
         background: #ecfeff !important;
         color: #0e7490 !important;
-        padding: 0.45rem 1.05rem !important;
+        padding: 0.48rem 1.1rem !important;
         transition: all 0.15s ease;
     }
-    .stButton > button[kind="primary"] {
+    .stButton > button[kind="primary"], .stDownloadButton > button[kind="primary"] {
         background: linear-gradient(135deg, #0891b2 0%, #0d9488 100%) !important;
         color: #ffffff !important;
         border: 2px solid #0e7490 !important;
@@ -240,7 +292,7 @@ st.markdown(
         background: #cffafe !important;
         border-color: #0891b2 !important;
     }
-    .stButton > button[kind="primary"]:hover {
+    .stButton > button[kind="primary"]:hover, .stDownloadButton > button[kind="primary"]:hover {
         filter: brightness(1.06);
     }
     </style>
@@ -265,6 +317,13 @@ st.markdown(
             <div class="omicmind-step-text">Run DESeq2, Explore Plots &amp; Export</div>
         </div>
     </div>
+
+    <div class="omicmind-results-banner">
+        <div class="omicmind-results-title">📊 Results, Plots &amp; Downloads Hub</div>
+        <p class="omicmind-results-sub">Differential expression tables, Volcano &amp; MA plots, plain-language summaries, and downloadable CSV/report outputs appear here once run.</p>
+    </div>
+
+    <div class="omicmind-cmd-label">💬 Command &amp; Assistant Prompt</div>
     """,
     unsafe_allow_html=True,
 )
@@ -489,7 +548,7 @@ if prompt:
         st.markdown(reply)
 
 st.divider()
-st.subheader("📊 Results, Plots & Downloads")
+
 cur_dir = st.session_state.last_out_dir
 rep_file = cur_dir / "automated_interpretation.txt"
 csv_file = cur_dir / "deseq2_results.csv"
