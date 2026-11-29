@@ -1,6 +1,6 @@
-# Agentic RNA-Seq Assistant
+# OmicMind
 
-An interactive Streamlit web application for RNA-Seq differential gene expression analysis powered by **Bioconductor's `DESeq2`** via R, featuring input validation, a reproducible synthetic dataset generator, interactive visualizations, and plain-language result summaries.
+**OmicMind** is an interactive web application for RNA-Seq differential gene expression analysis powered by **Bioconductor's `DESeq2`** via R, featuring strict input validation, a reproducible synthetic dataset generator, interactive visualizations, and plain-language result summaries.
 
 ## Key Features
 - **Input Validation:** Checks for empty files, missing required columns, blank/duplicate gene IDs, non-numeric or negative count values, sample mismatches between counts and metadata, and insufficient condition groups.

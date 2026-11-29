@@ -26,7 +26,7 @@ RSCRIPT_EXE = shutil.which("Rscript") or "Rscript"
 DESEQ2_SCRIPT = PROJECT_DIR / "scripts" / "run_deseq2.R"
 
 st.set_page_config(
-    page_title="Agentic RNA-Seq Assistant",
+    page_title="OmicMind",
     page_icon="🧬",
     layout="wide",
 )
@@ -123,7 +123,7 @@ if "messages" not in st.session_state:
         {
             "role": "assistant",
             "content": (
-                "Hello! I am your **Agentic RNA-Seq Assistant**. "
+                "Hello! I am your **OmicMind**. "
                 "You can ask me to run workflows or inspect results—for example: *'run real_like dataset'*, "
                 "*'run stress test'*, *'show top genes summary'*, or *'run with padj < 0.01 and log2FC >= 1.5'*."
             ),
