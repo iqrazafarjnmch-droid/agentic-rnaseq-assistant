@@ -35,63 +35,165 @@ st.set_page_config(
 st.markdown(
     """
     <style>
+    /* Global canvas & typography */
+    .stApp {
+        background-color: #f4f7f9;
+        color: #0f172a;
+    }
     .block-container {
-        padding-top: 3.6rem !important;
-        padding-bottom: 2.5rem !important;
-        max-width: 1200px;
+        padding-top: 3.4rem !important;
+        padding-bottom: 3rem !important;
+        max-width: 1240px;
+    }
+
+    /* Sidebar polish */
+    section[data-testid="stSidebar"] {
+        background-color: #ffffff;
+        border-right: 1px solid #e2e8f0;
     }
     section[data-testid="stSidebar"] > div {
-        padding-top: 2rem;
+        padding-top: 1.8rem;
     }
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 {
+        color: #0f172a;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+    }
+
+    /* Hero Banner */
     .omicmind-hero {
-        background: linear-gradient(135deg, #0b132b 0%, #1c2541 55%, #0f766e 100%);
+        background: linear-gradient(135deg, #0b132b 0%, #1c2541 52%, #0f766e 100%);
         color: #ffffff;
-        padding: 1.75rem 2rem;
+        padding: 1.85rem 2.1rem;
         border-radius: 16px;
         border: 1px solid rgba(255, 255, 255, 0.14);
-        box-shadow: 0 12px 30px -12px rgba(11, 19, 43, 0.5);
-        margin-bottom: 1.4rem;
+        box-shadow: 0 14px 32px -14px rgba(11, 19, 43, 0.55);
+        margin-bottom: 1.1rem;
     }
     .omicmind-badge {
         display: inline-block;
-        font-size: 0.78rem;
+        font-size: 0.76rem;
         font-weight: 600;
         letter-spacing: 0.05em;
         text-transform: uppercase;
         background: rgba(45, 212, 191, 0.2);
         color: #99f6e4;
-        padding: 0.28rem 0.75rem;
+        padding: 0.28rem 0.78rem;
         border-radius: 999px;
         margin-bottom: 0.65rem;
     }
     .omicmind-title {
-        font-size: 2.15rem;
+        font-size: 2.2rem;
         font-weight: 800;
-        line-height: 1.2;
+        line-height: 1.18;
         margin: 0;
         letter-spacing: -0.02em;
     }
     .omicmind-sub {
         color: #e2e8f0;
-        font-size: 1rem;
+        font-size: 0.98rem;
         margin: 0.45rem 0 0 0;
         line-height: 1.5;
     }
-    div[data-testid="stMetric"] {
-        background: #f8fafc;
-        border: 1px solid #e2e8f0;
-        padding: 0.85rem 1rem;
-        border-radius: 12px;
+
+    /* 3-Step Workflow Strip */
+    .omicmind-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.85rem;
+        margin-bottom: 1.35rem;
     }
-    div[data-testid="stExpander"] {
-        border-radius: 12px;
+    .omicmind-step-card {
+        background: #ffffff;
         border: 1px solid #e2e8f0;
+        border-left: 4px solid #0f766e;
+        border-radius: 12px;
+        padding: 0.8rem 1rem;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+    .omicmind-step-num {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: #0f766e;
+        margin-bottom: 0.2rem;
+    }
+    .omicmind-step-text {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    /* Expanders, Metrics, Tables & Chat Cards */
+    div[data-testid="stExpander"] {
+        background: #ffffff;
+        border-radius: 12px !important;
+        border: 1px solid #e2e8f0 !important;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+    div[data-testid="stMetric"] {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-top: 3px solid #0f766e;
+        padding: 0.9rem 1.05rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+    div[data-testid="stChatMessage"] {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 0.9rem 1.1rem;
+        box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
+        margin-bottom: 0.75rem;
+    }
+    div[data-testid="stDataFrame"] {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 0.35rem;
+    }
+
+    /* Buttons */
+    .stButton > button, .stDownloadButton > button {
+        border-radius: 10px !important;
+        font-weight: 600 !important;
+        border: 1px solid #cbd5e1 !important;
+        transition: all 0.15s ease-in-out;
+    }
+    .stButton > button[kind="primary"] {
+        background: linear-gradient(135deg, #0f766e 0%, #115e59 100%) !important;
+        color: #ffffff !important;
+        border: none !important;
+    }
+    .stButton > button:hover, .stDownloadButton > button:hover {
+        border-color: #0f766e !important;
+        transform: translateY(-1px);
     }
     </style>
+
     <div class="omicmind-hero">
         <div class="omicmind-badge">🧬 Bioconductor DESeq2 • Reproducible • Interactive</div>
         <h1 class="omicmind-title">OmicMind</h1>
         <p class="omicmind-sub">Controlled RNA-Seq Differential Expression Analysis, Interactive Volcano &amp; MA Visualizations, and Automated Biological Interpretation</p>
+    </div>
+
+    <div class="omicmind-steps">
+        <div class="omicmind-step-card">
+            <div class="omicmind-step-num">Step 1 • Input Data</div>
+            <div class="omicmind-step-text">Choose Preset or Upload Counts &amp; Metadata CSV</div>
+        </div>
+        <div class="omicmind-step-card">
+            <div class="omicmind-step-num">Step 2 • Thresholds</div>
+            <div class="omicmind-step-text">Set padj &amp; |log2FoldChange| Cutoffs</div>
+        </div>
+        <div class="omicmind-step-card">
+            <div class="omicmind-step-num">Step 3 • Analyze &amp; Export</div>
+            <div class="omicmind-step-text">Run DESeq2, Inspect Plots &amp; Download Report</div>
+        </div>
     </div>
     """,
     unsafe_allow_html=True,
