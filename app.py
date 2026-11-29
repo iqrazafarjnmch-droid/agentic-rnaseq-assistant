@@ -35,44 +35,63 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    .block-container { padding-top: 1.5rem; padding-bottom: 2rem; }
+    .block-container {
+        padding-top: 3.6rem !important;
+        padding-bottom: 2.5rem !important;
+        max-width: 1200px;
+    }
+    section[data-testid="stSidebar"] > div {
+        padding-top: 2rem;
+    }
     .omicmind-hero {
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #0f766e 100%);
-        color: #f8fafc;
-        padding: 1.25rem 1.5rem;
-        border-radius: 14px;
-        border: 1px solid rgba(255,255,255,0.12);
-        box-shadow: 0 10px 25px -12px rgba(15, 23, 42, 0.45);
-        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #0b132b 0%, #1c2541 55%, #0f766e 100%);
+        color: #ffffff;
+        padding: 1.75rem 2rem;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow: 0 12px 30px -12px rgba(11, 19, 43, 0.5);
+        margin-bottom: 1.4rem;
     }
     .omicmind-badge {
         display: inline-block;
-        font-size: 0.75rem;
+        font-size: 0.78rem;
         font-weight: 600;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.05em;
         text-transform: uppercase;
-        background: rgba(45, 212, 191, 0.18);
+        background: rgba(45, 212, 191, 0.2);
         color: #99f6e4;
-        padding: 0.2rem 0.6rem;
+        padding: 0.28rem 0.75rem;
         border-radius: 999px;
-        margin-bottom: 0.45rem;
+        margin-bottom: 0.65rem;
+    }
+    .omicmind-title {
+        font-size: 2.15rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin: 0;
+        letter-spacing: -0.02em;
     }
     .omicmind-sub {
-        color: #cbd5e1;
-        font-size: 0.95rem;
-        margin: 0.25rem 0 0 0;
+        color: #e2e8f0;
+        font-size: 1rem;
+        margin: 0.45rem 0 0 0;
+        line-height: 1.5;
     }
     div[data-testid="stMetric"] {
-        background: rgba(15, 118, 110, 0.06);
-        border: 1px solid rgba(15, 118, 110, 0.18);
-        padding: 0.65rem 0.85rem;
-        border-radius: 10px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        padding: 0.85rem 1rem;
+        border-radius: 12px;
+    }
+    div[data-testid="stExpander"] {
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
     }
     </style>
     <div class="omicmind-hero">
-        <div class="omicmind-badge">DESeq2 • Reproducible • Interactive</div>
-        <div style="font-size: 1.85rem; font-weight: 700; line-height: 1.2;">OmicMind</div>
-        <p class="omicmind-sub">Guided RNA-Seq Differential Expression, Interactive Plots &amp; Plain-Language Insights</p>
+        <div class="omicmind-badge">🧬 Bioconductor DESeq2 • Reproducible • Interactive</div>
+        <h1 class="omicmind-title">OmicMind</h1>
+        <p class="omicmind-sub">Controlled RNA-Seq Differential Expression Analysis, Interactive Volcano &amp; MA Visualizations, and Automated Biological Interpretation</p>
     </div>
     """,
     unsafe_allow_html=True,
@@ -179,9 +198,6 @@ if "messages" not in st.session_state:
     ]
 if "last_out_dir" not in st.session_state:
     st.session_state.last_out_dir = RESULTS_DIR / "real_like"
-
-st.title("🧬 OmicMind")
-st.caption("Controlled DESeq2 Execution, Automated Result Interpretation & Interactive Assistant")
 
 with st.sidebar:
     st.header("Workflow Controls")
