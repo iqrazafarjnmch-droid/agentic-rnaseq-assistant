@@ -31,6 +31,54 @@ st.set_page_config(
     layout="wide",
 )
 
+# --- OmicMind visual polish ---
+st.markdown(
+    """
+    <style>
+    .block-container { padding-top: 1.5rem; padding-bottom: 2rem; }
+    .omicmind-hero {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 55%, #0f766e 100%);
+        color: #f8fafc;
+        padding: 1.25rem 1.5rem;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: 0 10px 25px -12px rgba(15, 23, 42, 0.45);
+        margin-bottom: 1rem;
+    }
+    .omicmind-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        background: rgba(45, 212, 191, 0.18);
+        color: #99f6e4;
+        padding: 0.2rem 0.6rem;
+        border-radius: 999px;
+        margin-bottom: 0.45rem;
+    }
+    .omicmind-sub {
+        color: #cbd5e1;
+        font-size: 0.95rem;
+        margin: 0.25rem 0 0 0;
+    }
+    div[data-testid="stMetric"] {
+        background: rgba(15, 118, 110, 0.06);
+        border: 1px solid rgba(15, 118, 110, 0.18);
+        padding: 0.65rem 0.85rem;
+        border-radius: 10px;
+    }
+    </style>
+    <div class="omicmind-hero">
+        <div class="omicmind-badge">DESeq2 • Reproducible • Interactive</div>
+        <div style="font-size: 1.85rem; font-weight: 700; line-height: 1.2;">OmicMind</div>
+        <p class="omicmind-sub">Guided RNA-Seq Differential Expression, Interactive Plots &amp; Plain-Language Insights</p>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
 
 def validate_inputs(counts_df: pd.DataFrame, meta_df: pd.DataFrame) -> tuple[bool, str]:
     if counts_df is None or meta_df is None or counts_df.empty or meta_df.empty:
@@ -132,7 +180,7 @@ if "messages" not in st.session_state:
 if "last_out_dir" not in st.session_state:
     st.session_state.last_out_dir = RESULTS_DIR / "real_like"
 
-st.title("🧬 AI-Assisted Agentic RNA-Seq Analysis Tool")
+st.title("🧬 OmicMind")
 st.caption("Controlled DESeq2 Execution, Automated Result Interpretation & Interactive Assistant")
 
 with st.sidebar:
