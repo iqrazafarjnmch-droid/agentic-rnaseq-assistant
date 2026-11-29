@@ -1,12 +1,16 @@
-# Agentic RNA-Seq Differential Expression Assistant
+# Agentic RNA-Seq Assistant
 
-An interactive Streamlit web application and DESeq2 analysis workflow for RNA-Seq differential expression analysis, volcano plot visualization, and automated interpretation reporting.
+An interactive Streamlit web application for RNA-Seq differential gene expression analysis powered by **Bioconductor's `DESeq2`** via R, featuring input validation, a reproducible synthetic dataset generator, interactive visualizations, and plain-language result summaries.
 
-## Features
-- Upload Counts CSV and Metadata CSV or run built-in preset datasets
-- Controlled DESeq2 execution with a safe gene-wise dispersion fallback for narrow-dispersion datasets
-- Configurable padj and |log2FoldChange| cutoffs
-- Automated biological summary, top up/downregulated genes, volcano plots, and downloadable CSV/report outputs
+## Key Features
+- **Input Validation:** Checks for empty files, missing required columns, blank/duplicate gene IDs, non-numeric or negative count values, sample mismatches between counts and metadata, and insufficient condition groups.
+- **Reproducible Synthetic Dataset:** Generates realistic count and metadata CSV files (`real_like_counts.csv` and `real_like_metadata.csv`) with a fixed random seed (`42`), including control/treated replicates and up/downregulated gene patterns.
+- **DESeq2 Workflow & Visualizations:** Runs differential expression analysis and displays results alongside Volcano plots, MA plots, top DEGs, and a plain-language **Quick Summary**.
 
-## Run Locally
-./run_app.sh
+## Input File Formats
+1. **Counts CSV:** First column as gene identifier (e.g., `gene_id` or `gene`) followed by numeric raw count columns matching sample IDs.
+2. **Metadata CSV:** Must include `sample` and `condition` columns (with at least two condition groups).
+
+## Notes & Limitations
+- Built-in synthetic data (`seed=42`) is intended for testing, demonstration, and workflow verification rather than biological discovery.
+- Always inspect count normalization, dispersion diagnostics, and batch/confounding variables when analyzing real experimental datasets.

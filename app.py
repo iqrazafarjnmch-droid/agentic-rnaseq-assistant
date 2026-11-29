@@ -290,16 +290,31 @@ if rep_file.exists() and csv_file.exists():
 else:
     st.info("Run the pipeline from the sidebar or type 'run real_like' in chat to view outputs.")
 
-
 # --- Plain-language quick summary ---
 if "res_df" in locals() and res_df is not None and not res_df.empty:
     with st.expander("Quick Summary (Aasaan Bhasha Mein)"):
         st.write(f"Total genes analyzed: {len(res_df)}")
         if "padj" in res_df.columns and "log2FoldChange" in res_df.columns:
-            sig = res_df[res_df["padj"].fillna(1) < padj_cut]
-            up_n = int((sig["log2FoldChange"] >= lfc_cut).sum())
-            down_n = int((sig["log2FoldChange"] <= -lfc_cut).sum())
-            st.write(f"Significant genes: {len(sig)} | Upregulated: {up_n} | Downregulated: {down_n}")
-            top_row = res_df.sort_values("padj").iloc[0]
-            gene_label = top_row.iloc[0] if len(top_row) > 0 else "N/A"
-            st.write(f"Top candidate gene: {gene_label} (padj={top_row['padj']:.2e}, log2FC={top_row['log2FoldChange']:.2f})")
+            padj_num = pd.to_numeric(res_df["padj"], errors="coerce")
+            lfc_num = pd.to_numeric(res_df["log2FoldChange"], errors="coerce")
+            p_cut = padj_cut if "padj_cut" in locals() else 0.05
+            f_cut = lfc_cut if "lfc_cut" in locals() else 1.0
+            sig_mask = padj_num.fillna(1.0) < p_cut
+            up_n = int((sig_mask & (lfc_num.fillna(0.0) >= f_cut)).sum())
+            down_n = int((sig_mask & (lfc_num.fillna(0.0) <= -f_cut)).sum())
+            st.write(f"Significant genes (padj < {p_cut}, |log2FC| >= {f_cut}): {up_n + down_n} | Upregulated: {up_n} | Downregulated: {down_n}")
+            valid_rows = res_df.assign(_padj=padj_num, _lfc=lfc_num).dropna(subset=["_padj"])
+            if not valid_rows.empty:
+                top_row = valid_rows.sort_values("_padj").iloc[0]
+                for gcol in ("gene", "gene_id"):
+                    if gcol in res_df.columns:
+                        gene_label = top_row[gcol]
+                        break
+                else:
+                    gene_label = top_row.iloc[0] if len(top_row) > 0 else "N/A"
+                padj_str = f"{top_row['_padj']:.2e}" if pd.notna(top_row["_padj"]) else "NA"
+                lfc_str = f"{top_row['_lfc']:.2f}" if pd.notna(top_row["_lfc"]) else "NA"
+                st.write(f"Top candidate gene: {gene_label} (padj={padj_str}, log2FC={lfc_str})")
+            else:
+                st.write("Top candidate gene: Not available (no non-missing adjusted p-values).")
+
