@@ -41,71 +41,75 @@ st.markdown(
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    /* Fresh Gen-Z / Linear-inspired canvas */
+    /* Bright, crisp canvas */
     .stApp {
-        background: radial-gradient(circle at 12% 8%, #eef2ff 0%, #f8fafc 45%, #f0fdfa 100%);
+        background: linear-gradient(160deg, #ecfeff 0%, #f8fafc 48%, #f0fdfa 100%);
         color: #0f172a;
     }
     .block-container {
-        padding-top: 3.3rem !important;
+        padding-top: 3.4rem !important;
         padding-bottom: 5.5rem !important;
-        max-width: 1260px;
+        max-width: 1280px;
     }
 
-    /* Left Sidebar: crisp, aesthetic control deck */
+    /* Left Sidebar: distinct turquoise-framed control panel */
     section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #fafaff 0%, #f3f4ff 55%, #f1fbf9 100%);
-        border-right: 1px solid #e2e8f0;
+        background: #f0fdfa;
+        border-right: 2px solid #99f6e4;
     }
     section[data-testid="stSidebar"] > div {
-        padding-top: 1.6rem;
+        padding-top: 1.5rem;
     }
     section[data-testid="stSidebar"] h1,
     section[data-testid="stSidebar"] h2,
     section[data-testid="stSidebar"] h3 {
-        color: #1e1b4b;
+        color: #134e4a;
         font-weight: 800;
-        letter-spacing: -0.02em;
+        border-bottom: 2px solid #5eead4;
+        padding-bottom: 0.45rem;
+        margin-bottom: 0.9rem;
+    }
+    section[data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div[data-testid="stElementContainer"] {
+        margin-bottom: 0.35rem;
     }
     section[data-testid="stSidebar"] [data-baseweb="select"] > div,
     section[data-testid="stSidebar"] input {
         border-radius: 12px !important;
-        border-color: #c7d2fe !important;
+        border: 1.5px solid #2dd4bf !important;
         background-color: #ffffff !important;
+        color: #0f172a !important;
     }
     section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"] {
         border-radius: 14px !important;
-        border: 1.5px dashed #818cf8 !important;
-        background: rgba(255, 255, 255, 0.85) !important;
-        transition: all 0.2s ease;
+        border: 2px dashed #06b6d4 !important;
+        background: #ffffff !important;
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.08);
     }
     section[data-testid="stSidebar"] [data-testid="stFileUploaderDropzone"]:hover {
-        border-color: #4f46e5 !important;
-        background: #eef2ff !important;
+        border-color: #0e7490 !important;
+        background: #ecfeff !important;
     }
 
-    /* Hero Banner: sleek indigo -> violet -> teal */
+    /* Hero Banner: rich turquoise -> cyan -> deep teal */
     .omicmind-hero {
-        background: linear-gradient(125deg, #1e1b4b 0%, #4338ca 48%, #0d9488 100%);
+        background: linear-gradient(125deg, #0e7490 0%, #06b6d4 52%, #0f766e 100%);
         color: #ffffff;
         padding: 1.85rem 2.15rem;
-        border-radius: 20px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 18px 38px -16px rgba(67, 56, 202, 0.45);
-        margin-bottom: 1.1rem;
+        border-radius: 18px;
+        border: 2px solid #67e8f9;
+        box-shadow: 0 14px 30px -10px rgba(14, 116, 144, 0.38);
+        margin-bottom: 1.15rem;
     }
     .omicmind-badge {
         display: inline-block;
-        font-size: 0.74rem;
+        font-size: 0.75rem;
         font-weight: 700;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.05em;
         text-transform: uppercase;
-        background: rgba(255, 255, 255, 0.16);
-        backdrop-filter: blur(8px);
-        color: #e0e7ff;
-        padding: 0.3rem 0.85rem;
+        background: #ffffff;
+        color: #0e7490;
+        padding: 0.28rem 0.8rem;
         border-radius: 999px;
-        border: 1px solid rgba(255, 255, 255, 0.22);
         margin-bottom: 0.65rem;
     }
     .omicmind-title {
@@ -113,124 +117,152 @@ st.markdown(
         font-weight: 800;
         line-height: 1.15;
         margin: 0;
-        letter-spacing: -0.03em;
+        color: #ffffff;
     }
     .omicmind-sub {
-        color: #eef2ff;
-        font-size: 0.98rem;
+        color: #f0fdfa;
+        font-size: 1rem;
         margin: 0.5rem 0 0 0;
         line-height: 1.5;
-        opacity: 0.95;
+        font-weight: 500;
     }
 
-    /* 3-Step Workflow Strip */
+    /* 3-Step Workflow Strip: distinct color per box */
     .omicmind-steps {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 0.9rem;
+        gap: 1rem;
         margin-bottom: 1.35rem;
     }
     .omicmind-step-card {
-        background: rgba(255, 255, 255, 0.92);
-        border: 1px solid #e0e7ff;
         border-radius: 16px;
-        padding: 0.85rem 1.05rem;
-        box-shadow: 0 6px 18px -10px rgba(30, 27, 75, 0.14);
-        transition: transform 0.18s ease, box-shadow 0.18s ease;
+        padding: 0.95rem 1.1rem;
+        box-shadow: 0 6px 16px -8px rgba(15, 23, 42, 0.14);
     }
-    .omicmind-step-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 22px -10px rgba(79, 70, 229, 0.25);
+    .step-1 {
+        background: #ecfeff;
+        border: 2px solid #22d3ee;
     }
+    .step-1 .omicmind-step-num { color: #0e7490; }
+
+    .step-2 {
+        background: #fffbeb;
+        border: 2px solid #fbbf24;
+    }
+    .step-2 .omicmind-step-num { color: #b45309; }
+
+    .step-3 {
+        background: #f0fdf4;
+        border: 2px solid #34d399;
+    }
+    .step-3 .omicmind-step-num { color: #047857; }
+
     .omicmind-step-num {
-        font-size: 0.72rem;
+        font-size: 0.74rem;
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        color: #4f46e5;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.3rem;
     }
     .omicmind-step-text {
-        font-size: 0.89rem;
-        font-weight: 600;
+        font-size: 0.92rem;
+        font-weight: 700;
         color: #0f172a;
     }
 
-    /* Expanders & Metrics */
+    /* Distinct bordered boxes for Expanders, Metrics, Tables & Chat */
     div[data-testid="stExpander"] {
-        background: #ffffff;
+        background: #ffffff !important;
         border-radius: 16px !important;
-        border: 1px solid #e2e8f0 !important;
-        box-shadow: 0 6px 18px -12px rgba(15, 23, 42, 0.12);
+        border: 2px solid #a5f3fc !important;
+        box-shadow: 0 6px 18px -10px rgba(6, 182, 212, 0.2) !important;
+        margin-bottom: 1rem !important;
+    }
+    div[data-testid="stExpander"] summary {
+        font-weight: 700 !important;
+        color: #0e7490 !important;
     }
     div[data-testid="stMetric"] {
         background: #ffffff;
-        border: 1px solid #e0e7ff;
+        border: 2px solid #99f6e4;
         border-radius: 16px;
         padding: 0.9rem 1.1rem;
-        box-shadow: 0 6px 18px -12px rgba(79, 70, 229, 0.14);
+        box-shadow: 0 6px 16px -10px rgba(13, 148, 136, 0.2);
+    }
+    div[data-testid="stDataFrame"] {
+        background: #ffffff;
+        border: 2px solid #bae6fd;
+        border-radius: 14px;
+        padding: 0.4rem;
+        box-shadow: 0 6px 16px -10px rgba(2, 132, 199, 0.16);
     }
 
-    /* Chatbot messages & floating pill input */
+    /* Chatbot messages: crisp, separate boxes */
     div[data-testid="stChatMessage"] {
-        background: #ffffff;
-        border: 1px solid #e0e7ff;
-        border-radius: 18px;
-        padding: 0.95rem 1.15rem;
-        box-shadow: 0 8px 22px -14px rgba(30, 27, 75, 0.18);
-        margin-bottom: 0.85rem;
-    }
-    div[data-testid="stChatInput"] > div {
-        border-radius: 999px !important;
-        border: 1.5px solid #a5b4fc !important;
         background: #ffffff !important;
-        box-shadow: 0 10px 25px -10px rgba(79, 70, 229, 0.28) !important;
-        padding-left: 0.5rem !important;
+        border: 2px solid #67e8f9 !important;
+        border-left: 6px solid #06b6d4 !important;
+        border-radius: 16px !important;
+        padding: 1rem 1.2rem !important;
+        box-shadow: 0 8px 20px -12px rgba(8, 145, 178, 0.25) !important;
+        margin-bottom: 0.9rem !important;
+    }
+
+    /* Chat input box: clear turquoise outline & high contrast */
+    div[data-testid="stChatInput"] > div {
+        border-radius: 16px !important;
+        border: 2px solid #06b6d4 !important;
+        background: #ffffff !important;
+        box-shadow: 0 8px 24px -8px rgba(6, 182, 212, 0.35) !important;
     }
     div[data-testid="stChatInput"] textarea {
-        font-size: 0.95rem !important;
+        color: #0f172a !important;
+        font-size: 0.96rem !important;
+        font-weight: 500 !important;
     }
 
     /* Buttons */
     .stButton > button, .stDownloadButton > button {
-        border-radius: 999px !important;
-        font-weight: 600 !important;
-        border: 1px solid #c7d2fe !important;
-        background: #ffffff !important;
-        color: #1e1b4b !important;
+        border-radius: 12px !important;
+        font-weight: 700 !important;
+        border: 2px solid #22d3ee !important;
+        background: #ecfeff !important;
+        color: #0e7490 !important;
         padding: 0.45rem 1.05rem !important;
-        transition: all 0.16s ease;
+        transition: all 0.15s ease;
     }
     .stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #4f46e5 0%, #0d9488 100%) !important;
+        background: linear-gradient(135deg, #0891b2 0%, #0d9488 100%) !important;
         color: #ffffff !important;
-        border: none !important;
-        box-shadow: 0 8px 18px -8px rgba(79, 70, 229, 0.45);
+        border: 2px solid #0e7490 !important;
     }
     .stButton > button:hover, .stDownloadButton > button:hover {
-        transform: translateY(-1px);
-        border-color: #4f46e5 !important;
+        background: #cffafe !important;
+        border-color: #0891b2 !important;
+    }
+    .stButton > button[kind="primary"]:hover {
+        filter: brightness(1.06);
     }
     </style>
 
     <div class="omicmind-hero">
-        <div class="omicmind-badge">✨ Bioconductor DESeq2 • Reproducible • Gen-Z Lab UI</div>
+        <div class="omicmind-badge">🧬 Bioconductor DESeq2 • Reproducible • Interactive</div>
         <h1 class="omicmind-title">OmicMind</h1>
         <p class="omicmind-sub">Guided RNA-Seq Differential Expression Analysis, Interactive Volcano &amp; MA Visualizations, and Automated Biological Interpretation</p>
     </div>
 
     <div class="omicmind-steps">
-        <div class="omicmind-step-card">
-            <div class="omicmind-step-num">01 • Input Data</div>
-            <div class="omicmind-step-text">Pick a Preset or Drop Counts &amp; Metadata CSV</div>
+        <div class="omicmind-step-card step-1">
+            <div class="omicmind-step-num">Step 1 • Turquoise Zone</div>
+            <div class="omicmind-step-text">Select Dataset Preset or Upload CSVs</div>
         </div>
-        <div class="omicmind-step-card">
-            <div class="omicmind-step-num">02 • Cutoffs</div>
-            <div class="omicmind-step-text">Tune padj &amp; |log2FoldChange| Thresholds</div>
+        <div class="omicmind-step-card step-2">
+            <div class="omicmind-step-num">Step 2 • Gold Zone</div>
+            <div class="omicmind-step-text">Set padj &amp; |log2FoldChange| Cutoffs</div>
         </div>
-        <div class="omicmind-step-card">
-            <div class="omicmind-step-num">03 • Run &amp; Vibe</div>
-            <div class="omicmind-step-text">Launch DESeq2, Explore Plots &amp; Grab Summary</div>
+        <div class="omicmind-step-card step-3">
+            <div class="omicmind-step-num">Step 3 • Emerald Zone</div>
+            <div class="omicmind-step-text">Run DESeq2, Explore Plots &amp; Export</div>
         </div>
     </div>
     """,
